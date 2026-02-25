@@ -339,6 +339,10 @@ export default function Home() {
         {/* Description Paragraphs */}
         <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
           <p>
+            I’m a curious polymath and generalist by nature — drawn across disciplines, yet disciplined enough to go deep when it matters. I think in systems, question first principles, and value clarity through exploration.</p>
+          <p>
+            At heart, I’m a tinkerer and builder — shaping thoughtful technology through iteration and precision. I focus less on noise and more on building things that work, endure, and improve over time.</p>
+          {/* <p>
             a full-stack developer and{" "}
             <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
               product builder
@@ -351,20 +355,20 @@ export default function Home() {
               polymath
             </a>{" "}
             who bridges technical architecture with business outcomes to create impactful, scalable solutions.
-          </p>
+          </p> */}
         </div>
 
         {/* Side Feature Link */}
-        <div className="mb-4 w-full flex justify-start py-6">
+        {/* <div className="mb-4 w-full flex justify-start py-6">
           <button className="group flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all duration-300">
             <span className="text-sm sm:text-base underline underline-offset-8 decoration-gray-200 dark:decoration-zinc-800 group-hover:decoration-blue-500 transition-all">
               side feature: neural landscape
             </span>
           </button>
-        </div>
+        </div> */}
 
         {/* Experience Section */}
-        <div className="mb-16 w-full text-left">
+        <div className="mb-16 w-full text-left py-6">
           <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Experience</h2>
           <div className="space-y-12">
 
