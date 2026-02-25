@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 // ─── Social Icon SVGs ────────────────────────────────────────────────────────
@@ -128,7 +128,7 @@ function FloatingNavBar() {
                 <rect width="16" height="12" x="4" y="8" rx="2" />
                 <path d="M2 14h2" />
                 <path d="M20 14h2" />
-                <path d="M15 13v2" />
+                <path d="M15 13v2" />``
                 <path d="M9 13v2" />
               </svg>
               // </svg>
@@ -170,8 +170,60 @@ function FloatingNavBar() {
 export default function Home() {
   const [isAgentMode, setIsAgentMode] = useState(false);
 
+  const starPositions = useMemo(() => {
+    return [...Array(50)].map(() => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      duration: 2 + Math.random() * 3,
+      delay: Math.random() * 5,
+    }));
+  }, []);
+
   return (
     <div className="relative flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300">
+      {/* Easter Egg Effects */}
+      <AnimatePresence>
+        {isAgentMode && (
+          <>
+            {/* Bluish Aura Edge Effect */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] pointer-events-none shadow-[inset_0_0_150px_rgba(29,78,216,0.5)] dark:shadow-[inset_0_0_150px_rgba(59,130,246,0.4)] transition-opacity duration-1000"
+            />
+            {/* Twinkling Stars Background */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
+            >
+              {starPositions.map((pos, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute h-[2px] w-[2px] bg-blue-500 dark:bg-white rounded-full shadow-[0_0_4px_rgba(59,130,246,0.8)] dark:shadow-[0_0_3px_white]"
+                  style={{
+                    top: pos.top,
+                    left: pos.left,
+                  }}
+                  animate={{
+                    opacity: [0.2, 1, 0.2],
+                    scale: [0.8, 1.2, 0.8],
+                  }}
+                  transition={{
+                    duration: pos.duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: pos.delay,
+                  }}
+                />
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       <ThemeToggle />
 
       <motion.main
