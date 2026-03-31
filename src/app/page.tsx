@@ -4,6 +4,11 @@ import Image from "next/image";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ExperienceItem } from "@/components/ExperienceItem";
+import { ExperienceCard } from "@/components/ExperienceCard";
+import { GithubGraph } from "@/components/GithubGraph";
+import { getMarkdownContent } from "@/data/content";
+import { KeyboardAnimation } from "@/components/KeyboardAnimation";
 
 // ─── Social Icon SVGs ────────────────────────────────────────────────────────
 function IconPerson() {
@@ -55,22 +60,7 @@ function IconX() {
   );
 }
 
-function IconYouTube() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.44a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
-    </svg>
-  );
-}
 
-function IconDiscord() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-    </svg>
-  );
-}
 
 function IconCalendar() {
   return (
@@ -154,11 +144,8 @@ function FloatingNavBar() {
       <a href="https://x.com/firecaffeine" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
       </a>
-      <a href="https://youtube.com/@theracecondition" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
-      </a>
-      <a href="https://discord.gg/ry4YCJaShK" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-        <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2914a.077.077 0 01-.0066.1277 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"></path></svg>
+      <a href="#research-and-blogs" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Research & Blogs">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
       </a>
       <a href="https://cal.com/adi-patil/30min" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
@@ -170,9 +157,30 @@ function FloatingNavBar() {
 export default function Home() {
   const [isAgentMode, setIsAgentMode] = useState(false);
   const [showQR, setShowQR] = useState(false);
+  const [time, setTime] = useState("");
   const [isLofiPlaying, setIsLofiPlaying] = useState(false);
   const [lofiVolume, setLofiVolume] = useState(1);
   const lofiRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(
+        now.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        })
+      );
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     if (lofiRef.current) {
@@ -260,89 +268,109 @@ export default function Home() {
 
       <ThemeToggle />
 
-      <motion.main
-        className="flex w-full max-w-2xl flex-col items-center text-center font-sans"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Profile Image (Aura Toggle) */}
-        <button
-          onClick={() => setIsAgentMode(!isAgentMode)}
-          className="group relative mb-2 h-48 w-48 grayscale filter sm:h-64 sm:w-64 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95 rounded-none"
-          aria-label="Toggle Aura Mode"
-        >
-          <Image
-            src="/profile-pic.png"
-            alt="Profile"
-            fill
-            className={`object-cover transition-all duration-700 ${!isAgentMode ? 'grayscale' : 'grayscale-0'}`}
-            priority
-          />
-          {/* <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/60 to-transparent dark:opacity-100 opacity-0 transition-opacity duration-500 pointer-events-none" /> */}
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-black dark:via-black/60 backdrop-blur-[1px]"></div>
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_20px_rgba(59,130,246,0.3)] rounded-full pointer-events-none"></div>
-        </button>
+      <AnimatePresence mode="wait">
+        {isAgentMode ? (
+          <motion.main
+            key="agent"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="flex w-full max-w-2xl flex-col items-start text-left px-4 sm:px-0 z-10"
+          >
+            <pre
+              className="w-full whitespace-pre-wrap font-mono text-sm leading-relaxed text-black dark:text-gray-300 selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black antialiased"
+              style={{ fontFamily: '"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Console", monospace' }}
+            >
+              {getMarkdownContent(time)}
+            </pre>
+          </motion.main>
+        ) : (
+          <motion.main
+            key="human"
+            className="flex w-full max-w-2xl flex-col items-center text-center font-sans z-10"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+          >
+            {/* Profile Image (Aura Toggle) */}
+            <button
+              onClick={() => setIsAgentMode(!isAgentMode)}
+              className="group relative mb-2 h-48 w-48 grayscale filter sm:h-64 sm:w-64 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95 rounded-none"
+              aria-label="Toggle Aura Mode"
+            >
+              <Image
+                src="/profile-pic.png"
+                alt="Profile"
+                fill
+                className={`object-cover transition-all duration-700 ${!isAgentMode ? 'grayscale' : 'grayscale-0'}`}
+                priority
+              />
+              {/* <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/60 to-transparent dark:opacity-100 opacity-0 transition-opacity duration-500 pointer-events-none" /> */}
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-black dark:via-black/60 backdrop-blur-[1px]"></div>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_20px_rgba(59,130,246,0.3)] rounded-full pointer-events-none"></div>
+            </button>
 
-        {/* Name */}
-        <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl">Shashwat Vishwakarma</h1>
+            {/* Name */}
+            <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl">Shashwat Vishwakarma</h1>
 
-        {/* Meta row */}
-        <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 sm:text-sm">
-          <span>/shəˈshwət vɪʃwəˈkɑːrmə/</span>
-          <span className="text-gray-300 dark:text-gray-700">•</span>
-          <span>noun</span>
-          <span className="text-gray-300 dark:text-gray-700">•</span>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5">
-              <span className="tabular-nums text-xs sm:text-sm">
-                <LiveClock />
-              </span>
-            </div>
-            <span className="text-gray-300 dark:text-gray-700">•</span>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-tight text-gray-400">lofi</span>
-              <button
-                onClick={toggleLofi}
-                className="flex h-5 w-5 items-center justify-center rounded-full transition-all hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-black dark:hover:text-white" aria-label="Play Lofi"
-              >
-                {isLofiPlaying ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pause"><rect width="4" height="16" x="6" y="4"></rect><rect width="4" height="16" x="14" y="4"></rect></svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-music"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-                )}
-              </button>
-              <AnimatePresence>
-                {isLofiPlaying && (
-                  <motion.div
-                    initial={{ width: 0, opacity: 0 }}
-                    animate={{ width: 40, opacity: 1 }}
-                    exit={{ width: 0, opacity: 0 }}
-                    className="flex h-5 items-center overflow-hidden"
+            {/* Meta row */}
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 sm:text-sm">
+              <span>/shəˈshwət vɪʃwəˈkɑːrmə/</span>
+              <span className="text-gray-300 dark:text-gray-700">•</span>
+              <span>noun</span>
+              <span className="text-gray-300 dark:text-gray-700">•</span>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="tabular-nums text-xs sm:text-sm">
+                    <LiveClock />
+                  </span>
+                </div>
+                <span className="text-gray-300 dark:text-gray-700">•</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-tight text-gray-400">lofi</span>
+                  <button
+                    onClick={toggleLofi}
+                    className="flex h-5 w-5 items-center justify-center rounded-full transition-all hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-black dark:hover:text-white" aria-label="Play Lofi"
                   >
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
-                      value={lofiVolume}
-                      onChange={(e) => setLofiVolume(parseFloat(e.target.value))}
-                      className="h-[2px] w-8 cursor-pointer appearance-none rounded-full bg-gray-200 dark:bg-zinc-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 dark:[&::-webkit-slider-thumb]:bg-zinc-500 hover:[&::-webkit-slider-thumb]:bg-black dark:hover:[&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:h-2 [&::-moz-range-thumb]:w-2 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gray-400 dark:[&::-moz-range-thumb]:bg-zinc-500 hover:[&::-moz-range-thumb]:bg-black dark:hover:[&::-moz-range-thumb]:bg-white transition-all"
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    {isLofiPlaying ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pause"><rect width="4" height="16" x="6" y="4"></rect><rect width="4" height="16" x="14" y="4"></rect></svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-music"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                    )}
+                  </button>
+                  <AnimatePresence>
+                    {isLofiPlaying && (
+                      <motion.div
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: 40, opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        className="flex h-5 items-center overflow-hidden"
+                      >
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.01"
+                          value={lofiVolume}
+                          onChange={(e) => setLofiVolume(parseFloat(e.target.value))}
+                          className="h-[2px] w-8 cursor-pointer appearance-none rounded-full bg-gray-200 dark:bg-zinc-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 dark:[&::-webkit-slider-thumb]:bg-zinc-500 hover:[&::-webkit-slider-thumb]:bg-black dark:hover:[&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:h-2 [&::-moz-range-thumb]:w-2 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gray-400 dark:[&::-moz-range-thumb]:bg-zinc-500 hover:[&::-moz-range-thumb]:bg-black dark:hover:[&::-moz-range-thumb]:bg-white transition-all"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Description Paragraphs */}
-        <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
-          <p>
-            I’m a curious polymath and generalist by nature — drawn across disciplines, yet disciplined enough to go deep when it matters. I think in systems, question first principles, and value clarity through exploration.</p>
-          <p>
-            At heart, I’m a tinkerer and builder — shaping thoughtful technology through iteration and precision. I focus less on noise and more on building things that work, endure, and improve over time.</p>
-          {/* <p>
+            {/* Description Paragraphs */}
+            <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
+              <p>
+                I’m a curious polymath and generalist by nature — drawn across disciplines, yet disciplined enough to go deep when it matters. I think in systems, question first principles, and value clarity through exploration.</p>
+              <p>
+                At heart, I’m a tinkerer and builder — shaping thoughtful technology through iteration and precision. I focus less on noise and more on building things that work, endure, and improve over time.</p>
+              {/* <p>
             a full-stack developer and{" "}
             <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
               product builder
@@ -356,10 +384,10 @@ export default function Home() {
             </a>{" "}
             who bridges technical architecture with business outcomes to create impactful, scalable solutions.
           </p> */}
-        </div>
+            </div>
 
-        {/* Side Feature Link */}
-        {/* <div className="mb-4 w-full flex justify-start py-6">
+            {/* Side Feature Link */}
+            {/* <div className="mb-4 w-full flex justify-start py-6">
           <button className="group flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all duration-300">
             <span className="text-sm sm:text-base underline underline-offset-8 decoration-gray-200 dark:decoration-zinc-800 group-hover:decoration-blue-500 transition-all">
               side feature: neural landscape
@@ -367,127 +395,356 @@ export default function Home() {
           </button>
         </div> */}
 
-        {/* Experience Section */}
-        <div className="mb-16 w-full text-left py-6">
-          <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Experience</h2>
-          <div className="space-y-12">
+            {/* Experience Section */}
+            <div className="mb-16 w-full text-left py-6">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Experience</h2>
+              <div className="space-y-6">
 
-            {/* EF */}
-            <div className="group">
-              <div className="mb-2 flex flex-col justify-between sm:flex-row sm:items-baseline">
-                <div className="flex items-center gap-2">
-                  <span className="font-medium text-black dark:text-white">Entrepreneur First</span>
-                  <a href="https://www.joinef.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 dark:text-gray-500 underline underline-offset-2 hover:text-black dark:hover:text-white">link</a>
-                </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">Founder in Residence, Bengaluru</span>
-              </div>
-              <div className="relative max-w-xl text-sm leading-relaxed text-gray-500 dark:text-gray-400 transition-all duration-300 max-h-20 overflow-hidden">
-                <div className="space-y-2">
-                  <p>As a Founder in Residence at Entrepreneurs First (EF), a premier global talent investor and startup accelerator known for backing exceptional individuals to build transformative companies from scratch, I am fully immersed in designing and developing cutting-edge Agentic AI systems.</p>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white dark:from-black to-transparent"></div>
-              </div>
-              <button className="mt-2 flex items-center gap-1 text-xs font-medium text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white">
-                View More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down h-3 w-3"><path d="m6 9 6 6 6-6"></path></svg>
-              </button>
-            </div>
+                {/* JULIUS BAER */}
+                <ExperienceCard
+                  title="JULIUS BAER | Wealth Management Intern"
+                  role="Dec 2025 - January 2026 | Gurugram, India"
+                  link="#"
+                  logo={<Image src="/juliusbaerlogo.png" alt="Julius Baer Logo" fill className="object-cover" />}
+                >
+                  <div className="space-y-2">
+                    <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
+                      <li>Applied equity valuation frameworks (DDM, P/E, PEG, P/B, CAPE) with comparative analysis across profitability and unit economics.</li>
+                      <li>Built a quantitative research framework covering volatility, drawdown, regime-wise returns, and equal-weight vs. index strategies.</li>
+                      <li>Automated portfolio backtesting and analytics workflows using Python to support investment research.</li>
+                      <li>Applied Monte Carlo simulations and options strategies (covered calls, spreads, straddles) for multi-asset risk estimation.</li>
+                    </ul>
+                  </div>
+                </ExperienceCard>
 
-            {/* GSOC */}
-            <div className="group">
-              <div className="mb-2 flex flex-col justify-between sm:flex-row sm:items-baseline">
-                <div className="flex items-center gap-2">
-                  <span className="font-medium text-black dark:text-white">Google Summer of Code 2025</span>
-                  <a href="#" className="text-xs text-gray-400 dark:text-gray-500 underline underline-offset-2 hover:text-black dark:hover:text-white">link</a>
-                </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">Emory University School of Medicine, Atlanta, USA</span>
-              </div>
-              <div className="relative max-w-xl text-sm leading-relaxed text-gray-500 dark:text-gray-400 transition-all duration-300 max-h-20 overflow-hidden">
-                <div className="space-y-2">
-                  <p>Designed and developed a comprehensive system for managing Access Control List (ACL) permissions across multiple Linux file system servers, including NFS and BeeGFS, demonstrating expertise in large-scale distributed systems and secure file management.</p>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white dark:from-black to-transparent"></div>
-              </div>
-              <button className="mt-2 flex items-center gap-1 text-xs font-medium text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white">
-                View More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down h-3 w-3"><path d="m6 9 6 6 6-6"></path></svg>
-              </button>
-            </div>
+                {/* PHASE0 */}
+                <ExperienceCard
+                  title="PHASE0 | Founder & Full-Stack Engineer"
+                  role="Dec 2025 – Present | Remote"
+                  link="#"
+                  logo={<Image src="/phase0logo2.png" alt="PHASE0 Logo" fill className="object-cover" />}
+                >
+                  <div className="space-y-2">
+                    <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
+                      <li>Built and deployed a production-ready ticketing platform using React, Node.js, and PostgreSQL.</li>
+                      <li>Designed scalable REST APIs with JWT authentication and role-based access control.</li>
+                      <li>Containerized services with Docker and deployed on AWS (EC2, RDS).</li>
+                      <li>Designed database schema and managed migrations using Prisma ORM.</li>
+                    </ul>
+                  </div>
+                </ExperienceCard>
 
-          </div>
-        </div>
+                {/* COGNECTO */}
+                <ExperienceCard
+                  title="COGNECTO | App Developer"
+                  role="Sep 2023 - Nov 2023 | Bengaluru, India"
+                  link="#"
+                  logo={<Image src="/cognectologo.jpg" alt="Cognecto Logo" fill className="object-cover" />}
+                >
+                  <div className="space-y-2">
+                    <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
+                      <li>Coordinated with team of 5 people to make changes in the Mobile Application of the Company.</li>
+                      <li>Re-Constructed Code Structure of the Mobile Application in Flutter.</li>
+                      <li>Increased the Application speed by 42% by optimizing code and removing bugs.</li>
+                    </ul>
+                  </div>
+                </ExperienceCard>
 
-        {/* Tech Stack */}
-        <div className="mb-16 w-full text-left">
-          <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Tech Stack</h2>
-          <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">I'm a generalist at heart who can build with anything, but here's the core stack I've spent the most time with:</p>
-          <div className="w-full space-y-4">
-            <div className="flex justify-end">
-              <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-black dark:hover:text-white transition-all duration-300">
-                View Full Stack
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
-              </button>
-            </div>
+                {/* D FRAME */}
+                <ExperienceCard
+                  title="D FRAME | Co-Founder of Technology (Full-Stack Engineer)"
+                  role="Jul 2022 - Jul 2024 | The Hague, Netherlands"
+                  link="#"
+                  logo={<Image src="/dframelogo.jpg" alt="D FRAME Logo" fill className="object-cover" />}
+                >
+                  <div className="space-y-2">
+                    <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
+                      <li>Built data pipelines (Pandas, NumPy) to analyze and monetize user data.</li>
+                      <li>Developed ad-campaign algorithm (Express, MongoDB) boosting conversions by 35%.</li>
+                    </ul>
+                  </div>
+                </ExperienceCard>
 
-            <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-              <div className="flex w-max animate-infinite-scroll">
-                {/* Tech Icons Row 1 */}
-                <div className="flex gap-12 py-4 pr-12">
-                  {["go", "python", "typescript", "javascript", "cplusplus", "react", "nextdotjs", "tailwindcss", "nodedotjs", "postgresql", "docker", "vercel", "github", "linux"].map(t => (
-                    <div key={t} className="flex flex-col items-center justify-center gap-2">
-                      <div className="h-10 w-10 transition-all duration-300">
-                        <img src={`https://cdn.simpleicons.org/${t}`} alt={t} className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300 brightness-0 hover:brightness-100 dark:brightness-0 dark:invert dark:hover:invert-0 dark:hover:brightness-100" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {/* Tech Icons Row 1 Duplicated */}
-                <div className="flex gap-12 py-4 pr-12">
-                  {["go", "python", "typescript", "javascript", "cplusplus", "react", "nextdotjs", "tailwindcss", "nodedotjs", "postgresql", "docker", "vercel", "github", "linux"].map(t => (
-                    <div key={t + "-dup"} className="flex flex-col items-center justify-center gap-2">
-                      <div className="h-10 w-10 transition-all duration-300">
-                        <img src={`https://cdn.simpleicons.org/${t}`} alt={t} className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300 brightness-0 hover:brightness-100 dark:brightness-0 dark:invert dark:hover:invert-0 dark:hover:brightness-100" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Pomodoro Timer */}
-        <div className="relative mb-16 w-full text-left">
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Pomodoro Timer</h2>
-            <button className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black dark:hover:text-white transition-colors">Adjust Time</button>
-          </div>
-          <div className="mb-8 w-full text-left">
-            <p className="text-sm italic text-gray-500 dark:text-gray-400">You've reached the end! Or have you? Before you vanish into the digital void, I've got a quick Pomodoro Timer to help you focus better on your next big thing.</p>
-          </div>
-          <div className="relative z-10 overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all dark:border-zinc-800 dark:bg-zinc-900/50">
-            <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-              <div className="flex flex-col items-center sm:items-start">
-                <span className="font-mono text-5xl font-light tracking-tight text-black dark:text-white">25:00</span>
-                <span className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-gray-400">Focus Session</span>
+            {/* 3D Keyboard */}
+            <div className="mb-8 w-full">
+              <div className="relative w-full h-[400px] sm:h-[500px] bg-transparent flex items-center justify-center">
+                <KeyboardAnimation />
               </div>
-              <div className="flex items-center gap-2">
-                <div className="mr-4 flex rounded-full bg-gray-50 p-1 dark:bg-zinc-800">
-                  <button className="rounded-full px-4 py-1.5 text-xs font-semibold transition-all bg-white text-black shadow-sm dark:bg-zinc-700 dark:text-white">25m</button>
-                  <button className="rounded-full px-4 py-1.5 text-xs font-semibold transition-all text-gray-400 hover:text-gray-600">5m</button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white transition-transform hover:scale-105 active:scale-95 dark:bg-white dark:text-black" aria-label="Start">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-play ml-0.5"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>
-                  </button>
-                  <button className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-all hover:bg-gray-50 hover:text-black dark:border-zinc-800 dark:text-gray-400 dark:hover:bg-zinc-800 dark:hover:text-white" aria-label="Reset">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+            </div>
+
+            {/* Tech Stack */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Tech Stack</h2>
+              <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">I'm a generalist at heart who can build with anything, but here's the core stack I've spent the most time with:</p>
+              <div className="w-full space-y-4">
+                <div className="flex justify-end">
+                  <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-black dark:hover:text-white transition-all duration-300">
+                    View Full Stack
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
                   </button>
                 </div>
+
+                <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+                  <div className="flex w-max animate-infinite-scroll">
+                    {/* Tech Icons Row 1 */}
+                    <div className="flex gap-12 py-4 pr-12">
+                      {["go", "python", "typescript", "javascript", "cplusplus", "react", "nextdotjs", "tailwindcss", "nodedotjs", "postgresql", "docker", "vercel", "github", "linux"].map(t => (
+                        <div key={t} className="flex flex-col items-center justify-center gap-2">
+                          <div className="h-10 w-10 transition-all duration-300">
+                            <img src={`https://cdn.simpleicons.org/${t}`} alt={t} className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300 brightness-0 hover:brightness-100 dark:brightness-0 dark:invert dark:hover:invert-0 dark:hover:brightness-100" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Tech Icons Row 1 Duplicated */}
+                    <div className="flex gap-12 py-4 pr-12">
+                      {["go", "python", "typescript", "javascript", "cplusplus", "react", "nextdotjs", "tailwindcss", "nodedotjs", "postgresql", "docker", "vercel", "github", "linux"].map(t => (
+                        <div key={t + "-dup"} className="flex flex-col items-center justify-center gap-2">
+                          <div className="h-10 w-10 transition-all duration-300">
+                            <img src={`https://cdn.simpleicons.org/${t}`} alt={t} className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300 brightness-0 hover:brightness-100 dark:brightness-0 dark:invert dark:hover:invert-0 dark:hover:brightness-100" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-      </motion.main>
+            {/* In Between These Experiences Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                In Between These Experiences
+              </h2>
+              <div className="rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
+                <ExperienceItem
+                  title="The Product Building Journey"
+                  role=""
+                  collapsible={true}
+                >
+                  <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                    <p>I've been building and experimenting on the product side for a long time. Each previous product always feels naive in hindsight, but looking back, I can see they were incrementally better, each iteration teaching me something new about users, infrastructure, and what it takes to build something people actually want.</p>
+                    <p>It started with <span className="font-medium">MetaWiper</span> during my sophomore year, a tool that cleaned image metadata. No one would use it, but I was proud. It was my first real attempt at shipping something complete.</p>
+                    <p>Next came <span className="font-medium">Stockic</span>, a news app where I spent months doing serious infrastructure work. This was where I learned to build systems that could scale, not just features that looked good.</p>
+                    <p>Then I worked on <span className="font-medium">Gloss Card</span>, and for the first time, a customer actually wanted to buy it for their product. That validation, knowing someone saw enough value to pay, was a turning point.</p>
+                    <p>After that, I built <span className="font-medium">NeuraLeap</span>, where I had the most meaningful user interactions yet, HRs from established firms. I worked on data pipelines capable of handling 50 million LinkedIn profiles and processing them with AI. The scale was different, the stakes were higher, and the technical challenges forced me to level up.</p>
+                    <p>Most recently, I worked on <span className="font-medium">Meteor</span>, an AI SEO toolkit at Entrepreneurs First. This time, my product was being used by 6 YC-backed companies. Real users. Real traction. Real feedback loops.</p>
+                    <p className="font-medium text-black dark:text-gray-300">So yes, hard work and consistency pay off. Each product was a step forward, even when it didn't feel like it at the time.</p>
+                  </div>
+                </ExperienceItem>
+              </div>
+            </div>
+
+            {/* Education Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Education
+              </h2>
+              <div className="space-y-12">
+                <ExperienceItem
+                  title="National Institute of Technology Hamirpur"
+                  role="Electrical Engineering"
+                >
+                  <p>2022 - Surviving</p>
+                </ExperienceItem>
+              </div>
+            </div>
+
+            {/* Contributions Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                GitHub Contributions
+              </h2>
+              <GithubGraph />
+            </div>
+
+            {/* Recommendations by Clients Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Recommendations by Clients
+              </h2>
+              <div className="space-y-8">
+                <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
+                  <div className="mb-3">
+                    <a href="https://www.linkedin.com/in/royhax/" target="_blank" rel="noopener noreferrer" className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors">Roy Feldman</a>
+                    <span className="ml-2 text-xs font-medium text-gray-500">Ex. 8200 (Israeli Intelligence Corps)</span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                    I've had the privilege to work with Aditya on several highly technical cybersecurity R&D projects involving design and implementation of defensive network components in Golang, network protocol research and analysis. He is a bright young engineer, extremely talented in hacking and cybersecurity, with a natural curiosity and passion for hacking, and a gift understanding how systems work, how to design and break them. I am certain that he will succeed in any endeavor he puts his mind to, in the realms of cybersecurity, engineering and beyond! :)
+                  </p>
+                </div>
+                <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
+                  <div className="mb-3">
+                    <a href="https://www.linkedin.com/in/tomgranot/" target="_blank" rel="noopener noreferrer" className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors">Tom Granot</a>
+                    <span className="ml-2 text-xs font-medium text-gray-500">Technical GTM (Israel)</span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                    It's not often that you get to talk to a person who is not only hungry for mentorship, but comes out of the gate with the attitude that enables him to learn so, so quickly on his feet.<br /><br />
+                    Aditya did research for highly technical content for me and independently navigated difficult situations without a lot of guidance. If you're looking for someone to research a technical topic for your content work, Aditya is disciplined, thorough and insistent on understanding things in depth before giving a final output.<br /><br />
+                    Keep on keeping on brother!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Research Publications Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Research Publications
+              </h2>
+              <div className="space-y-12">
+                <ExperienceItem title="Cross-Compatible Encryption Adapter for Securing Legacy Modbus Devices" role="" collapsible={true} collapsedHeight="max-h-40">
+                  <div className="space-y-4">
+                    <div className="space-y-1">
+                      <p className="text-sm text-gray-400 font-medium">2025 17th International Conference on COMmunication Systems and NETworks (COMSNETS)</p>
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                        <p className="text-gray-600 dark:text-gray-400">Authors: Aditya Patil; T. S. Sreeram</p>
+                        <a href="https://doi.org/10.1109/COMSNETS63942.2025.10885597" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs font-medium text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">View Publication</a>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-xs uppercase tracking-wider text-gray-400 dark:text-gray-500 font-bold">Abstract</p>
+                      <p className="text-gray-600 dark:text-gray-400">Supervisory Control and Data Acquisition systems are the backbone of managing critical infrastructure in modern industrial control systems, spanning sectors from power generation to logistics. However, these systems face significant challenges due to threats from malicious actors. The Modbus protocol, despite its known lack of security features, is still used in many industries managing critical infrastructure due to the high cost of replacing existing systems. As a result, these legacy systems remain vulnerable to potentially damaging threats. This paper proposes an adapter device for enhancing the security of the Modbus protocol without replacing devices in legacy systems. The proposed adapter is cost-efficient, provides cross-platform support, and is easy to install, update, and maintain.</p>
+                    </div>
+                  </div>
+                </ExperienceItem>
+              </div>
+            </div>
+
+            {/* Videos Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Explainer Videos
+              </h2>
+              <div className="space-y-3 text-lg text-gray-600 dark:text-gray-400">
+                <p>here is how i explain complex systems on my <a href="https://www.youtube.com/@theracecondition" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">youtube channel</a></p>
+                <p>watch me build <a href="https://www.youtube.com/watch?v=m84tBP_4DWE" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">spotify system design</a></p>
+              </div>
+            </div>
+
+            {/* Writings & Blogs Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Writings & Blogs
+              </h2>
+              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                i host my thoughts on <a href="https://medium.com/@adityapatil24680" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 transition-colors hover:text-gray-600 dark:hover:text-gray-300">medium</a> rather than building a custom site. instead of overengineering and reinventing the wheel, i prefer leveraging a mature platform that lets me focus on what matters: sharing insights on ai systems, product strategy, and technical architecture.
+              </p>
+            </div>
+
+            {/* Library Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Library
+              </h2>
+              <div className="relative transition-all duration-500 max-h-32 overflow-hidden">
+                <div className="mb-8">
+                  <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">Dev</h3>
+                  <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                    {[
+                      { title: "Linux Kernel Development", author: "Robert Love" },
+                      { title: "Hacking: The Art of Exploitation", author: "Jon Erickson" },
+                      { title: "Linux in a Nutshell", author: "Ellen Siever, Stephen Figgins, Robert Love, and Arnold Robbins" },
+                      { title: "Linux Kernel in a Nutshell", author: "Greg Kroah-Hartman" },
+                      { title: "The Art of Electronics", author: "Paul Horowitz and Winfield Hill" },
+                      { title: "Nmap Cookbook", author: "Nicholas Marsh" }
+                    ].map((book) => (
+                      <div key={book.title} className="group flex flex-col gap-1 transition-all">
+                        <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">{book.title}</span>
+                        <span className="text-xs text-gray-400 dark:text-gray-500">{book.author}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">Casual Reads</h3>
+                  <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                    {[
+                      { title: "Hooked: How to Build Habit-Forming Products", author: "Nir Eyal" },
+                      { title: "The Lean Startup", author: "Eric Ries" },
+                      { title: "Zero to One", author: "Peter Thiel" },
+                      { title: "The Almanack of Naval Ravikant", author: "Eric Jorgenson" },
+                      { title: "Deep Work", author: "Cal Newport" },
+                      { title: "The Anthology of Balaji Srinivasan", author: "Eric Jorgenson" }
+                    ].map((book) => (
+                      <div key={book.title} className="group flex flex-col gap-1 transition-all">
+                        <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">{book.title}</span>
+                        <span className="text-xs text-gray-400 dark:text-gray-500">{book.author}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <p className="mt-6 text-xs italic text-gray-400 dark:text-gray-500">*and many more, these are just one of my best reads</p>
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white dark:from-black to-transparent" />
+              </div>
+            </div>
+
+            {/* Thing about me Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Thing about me
+              </h2>
+              <div className="space-y-6">
+                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                  beyond engineering and build systems, i find balance in the tactile and the thoughtful. whether it's exploring the nuances of complex architectures or spending time in the real world, my approach to life is driven by curiosity and a desire to understand how things work at their core.
+                </p>
+                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                  i believe that the best products are built by people who have a diverse range of interests. it's the unique combination of technical depth and human perspective that allows us to create technology that actually resonates.
+                </p>
+              </div>
+            </div>
+
+            {/* Get in Touch Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+                Get in Touch
+              </h2>
+              <div className="space-y-4">
+                <p className="text-lg text-gray-600 dark:text-gray-400">
+                  connect with me on <a href="https://www.linkedin.com/in/aditya-patil-260a631b2/" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">linkedin</a> or shoot an <a href="mailto:adityapatil24680@gmail.com" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">email</a>
+                </p>
+              </div>
+            </div>
+
+            {/* Pomodoro Timer */}
+            <div className="relative mb-16 w-full text-left">
+              <div className="mb-6 flex items-center justify-between">
+                <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Pomodoro Timer</h2>
+                <button className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black dark:hover:text-white transition-colors">Adjust Time</button>
+              </div>
+              <div className="mb-8 w-full text-left">
+                <p className="text-sm italic text-gray-500 dark:text-gray-400">You've reached the end! Or have you? Before you vanish into the digital void, I've got a quick Pomodoro Timer to help you focus better on your next big thing.</p>
+              </div>
+              <div className="relative z-10 overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all dark:border-zinc-800 dark:bg-zinc-900/50">
+                <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+                  <div className="flex flex-col items-center sm:items-start">
+                    <span className="font-mono text-5xl font-light tracking-tight text-black dark:text-white">25:00</span>
+                    <span className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-gray-400">Focus Session</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="mr-4 flex rounded-full bg-gray-50 p-1 dark:bg-zinc-800">
+                      <button className="rounded-full px-4 py-1.5 text-xs font-semibold transition-all bg-white text-black shadow-sm dark:bg-zinc-700 dark:text-white">25m</button>
+                      <button className="rounded-full px-4 py-1.5 text-xs font-semibold transition-all text-gray-400 hover:text-gray-600">5m</button>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white transition-transform hover:scale-105 active:scale-95 dark:bg-white dark:text-black" aria-label="Start">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-play ml-0.5"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>
+                      </button>
+                      <button className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-all hover:bg-gray-50 hover:text-black dark:border-zinc-800 dark:text-gray-400 dark:hover:bg-zinc-800 dark:hover:text-white" aria-label="Reset">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </motion.main>
+        )}
+      </AnimatePresence>
 
       <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full border border-gray-200 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/80 px-4 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90 dark:hover:bg-zinc-900 sm:gap-6 sm:px-6 z-50">
         <div className="flex items-center">
@@ -533,11 +790,8 @@ export default function Home() {
         <a href="https://x.com/firecaffeine" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
           <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
         </a>
-        <a href="https://youtube.com/@theracecondition" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
-        </a>
-        <a href="https://discord.gg/ry4YCJaShK" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-          <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2914a.077.077 0 01-.0066.1277 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"></path></svg>
+        <a href="#research-and-blogs" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Research & Blogs">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
         </a>
         <a href="https://cal.com/adi-patil/30min" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
