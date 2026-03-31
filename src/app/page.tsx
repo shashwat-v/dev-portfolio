@@ -3,12 +3,14 @@
 import Image from "next/image";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { User, Bot, FileText, Download, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ExperienceItem } from "@/components/ExperienceItem";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { GithubGraph } from "@/components/GithubGraph";
 import { getMarkdownContent } from "@/data/content";
 import { KeyboardAnimation } from "@/components/KeyboardAnimation";
+import { TechStack } from "@/components/TechStack";
 
 // ─── Social Icon SVGs ────────────────────────────────────────────────────────
 function IconPerson() {
@@ -135,13 +137,13 @@ function FloatingNavBar() {
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1"></rect><rect width="5" height="5" x="16" y="3" rx="1"></rect><rect width="5" height="5" x="3" y="16" rx="1"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3"></path><path d="M21 21v.01"></path><path d="M12 7v3a2 2 0 0 1-2 2H7"></path><path d="M3 12h.01"></path><path d="M12 3h.01"></path><path d="M12 16v.01"></path><path d="M16 12h1"></path><path d="M21 12v.01"></path><path d="M12 21v-1"></path></svg>
       </button>
       <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700"></div>
-      <a href="https://github.com/PythonHacker24" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
+      <a href="https://github.com/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
       </a>
-      <a href="https://www.linkedin.com/in/aditya-patil-260a631b2/" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
+      <a href="https://www.linkedin.com/in/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
       </a>
-      <a href="https://x.com/firecaffeine" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
+      <a href="https://x.com/shvshvat" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
       </a>
       <a href="#research-and-blogs" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Research & Blogs">
@@ -157,10 +159,23 @@ function FloatingNavBar() {
 export default function Home() {
   const [isAgentMode, setIsAgentMode] = useState(false);
   const [showQR, setShowQR] = useState(false);
+  const [showResume, setShowResume] = useState(false);
+  const [isAuraActive, setIsAuraActive] = useState(false);
   const [time, setTime] = useState("");
   const [isLofiPlaying, setIsLofiPlaying] = useState(false);
   const [lofiVolume, setLofiVolume] = useState(1);
   const lofiRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (showQR || showResume) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showQR, showResume]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -225,7 +240,7 @@ export default function Home() {
     <div className="relative flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300">
       {/* Easter Egg Effects */}
       <AnimatePresence>
-        {isAgentMode && (
+        {isAuraActive && (
           <>
             {/* Bluish Aura Edge Effect */}
             <motion.div
@@ -296,7 +311,7 @@ export default function Home() {
           >
             {/* Profile Image (Aura Toggle) */}
             <button
-              onClick={() => setIsAgentMode(!isAgentMode)}
+              onClick={() => setIsAuraActive(!isAuraActive)}
               className="group relative mb-2 h-48 w-48 grayscale filter sm:h-64 sm:w-64 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95 rounded-none"
               aria-label="Toggle Aura Mode"
             >
@@ -304,7 +319,7 @@ export default function Home() {
                 src="/profile-pic.png"
                 alt="Profile"
                 fill
-                className={`object-cover transition-all duration-700 ${!isAgentMode ? 'grayscale' : 'grayscale-0'}`}
+                className={`object-cover transition-all duration-700 ${!isAuraActive ? 'grayscale' : 'grayscale-0'}`}
                 priority
               />
               {/* <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/60 to-transparent dark:opacity-100 opacity-0 transition-opacity duration-500 pointer-events-none" /> */}
@@ -479,39 +494,7 @@ export default function Home() {
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Tech Stack</h2>
               <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">I'm a generalist at heart who can build with anything, but here's the core stack I've spent the most time with:</p>
-              <div className="w-full space-y-4">
-                <div className="flex justify-end">
-                  <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-black dark:hover:text-white transition-all duration-300">
-                    View Full Stack
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
-                  </button>
-                </div>
-
-                <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-                  <div className="flex w-max animate-infinite-scroll">
-                    {/* Tech Icons Row 1 */}
-                    <div className="flex gap-12 py-4 pr-12">
-                      {["go", "python", "typescript", "javascript", "cplusplus", "react", "nextdotjs", "tailwindcss", "nodedotjs", "postgresql", "docker", "vercel", "github", "linux"].map(t => (
-                        <div key={t} className="flex flex-col items-center justify-center gap-2">
-                          <div className="h-10 w-10 transition-all duration-300">
-                            <img src={`https://cdn.simpleicons.org/${t}`} alt={t} className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300 brightness-0 hover:brightness-100 dark:brightness-0 dark:invert dark:hover:invert-0 dark:hover:brightness-100" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    {/* Tech Icons Row 1 Duplicated */}
-                    <div className="flex gap-12 py-4 pr-12">
-                      {["go", "python", "typescript", "javascript", "cplusplus", "react", "nextdotjs", "tailwindcss", "nodedotjs", "postgresql", "docker", "vercel", "github", "linux"].map(t => (
-                        <div key={t + "-dup"} className="flex flex-col items-center justify-center gap-2">
-                          <div className="h-10 w-10 transition-all duration-300">
-                            <img src={`https://cdn.simpleicons.org/${t}`} alt={t} className="h-full w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300 brightness-0 hover:brightness-100 dark:brightness-0 dark:invert dark:hover:invert-0 dark:hover:brightness-100" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <TechStack />
             </div>
 
             {/* In Between These Experiences Section */}
@@ -543,12 +526,24 @@ export default function Home() {
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
                 Education
               </h2>
-              <div className="space-y-12">
+              <div className="space-y-6">
                 <ExperienceItem
-                  title="National Institute of Technology Hamirpur"
-                  role="Electrical Engineering"
+                  title="Ashoka University"
+                  role="B.Sc (Hons.) in Economics & Finance, minor in Entrepreneurship & Mathematics"
                 >
-                  <p>2022 - Surviving</p>
+                  <p>August 2023 - August 2027</p>
+                </ExperienceItem>
+                <ExperienceItem
+                  title="Yugdharma Public School"
+                  role="High School (Class 12th PCM)"
+                >
+                  <p>April 2021 - April 2022</p>
+                </ExperienceItem>
+                <ExperienceItem
+                  title="Scholars Academy"
+                  role="Secondary School (Class 10th)"
+                >
+                  <p>May 2019 - May 2020</p>
                 </ExperienceItem>
               </div>
             </div>
@@ -704,7 +699,7 @@ export default function Home() {
               </h2>
               <div className="space-y-4">
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  connect with me on <a href="https://www.linkedin.com/in/aditya-patil-260a631b2/" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">linkedin</a> or shoot an <a href="mailto:adityapatil24680@gmail.com" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">email</a>
+                  connect with me on <a href="https://www.linkedin.com/in/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">linkedin</a> or shoot an <a href="mailto:shashwat.v@example.com" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">email</a>
                 </p>
               </div>
             </div>
@@ -750,26 +745,19 @@ export default function Home() {
         <div className="flex items-center">
           <button
             onClick={() => setIsAgentMode(!isAgentMode)}
-            className={`group relative flex h-7 w-12 cursor-pointer rounded-full p-1 transition-colors duration-200 ease-in-out focus:outline-none bg-gray-200 hover:bg-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600`}
+            className="group relative flex h-7 w-12 cursor-pointer rounded-full bg-gray-200 dark:bg-zinc-700 p-1 transition-colors duration-200 ease-in-out hover:bg-gray-300 dark:hover:bg-zinc-600 focus:outline-none"
             role="switch"
             aria-checked={isAgentMode}
-            title="Switch to agent mode"
+            title={`Switch to ${!isAgentMode ? "agent" : "human"} mode`}
           >
-            <div className={`flex h-5 w-5 transform items-center justify-center rounded-full bg-white shadow-sm transition duration-200 ease-in-out ${isAgentMode ? 'translate-x-5' : 'translate-x-0'}`}>
-              {isAgentMode ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3 text-black" aria-hidden="true">
-                  <path d="M12 8V4H8" />
-                  <rect width="16" height="12" x="4" y="8" rx="2" />
-                  <path d="M2 14h2" />
-                  <path d="M20 14h2" />
-                  <path d="M15 13v2" />
-                  <path d="M9 13v2" />
-                </svg>
+            <div
+              className={`flex h-5 w-5 transform items-center justify-center rounded-full bg-white dark:bg-white shadow-sm transition duration-200 ease-in-out ${isAgentMode ? "translate-x-5" : "translate-x-0"
+                }`}
+            >
+              {!isAgentMode ? (
+                <User className="h-3 w-3 text-black" />
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3 text-black" aria-hidden="true">
-                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
+                <Bot className="h-3 w-3 text-black" />
               )}
             </div>
           </button>
@@ -780,18 +768,24 @@ export default function Home() {
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1"></rect><rect width="5" height="5" x="16" y="3" rx="1"></rect><rect width="5" height="5" x="3" y="16" rx="1"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3"></path><path d="M21 21v.01"></path><path d="M12 7v3a2 2 0 0 1-2 2H7"></path><path d="M3 12h.01"></path><path d="M12 3h.01"></path><path d="M12 16v.01"></path><path d="M16 12h1"></path><path d="M21 12v.01"></path><path d="M12 21v-1"></path></svg>
         </button>
+        <button
+          onClick={() => setShowResume(true)}
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" aria-label="Show Resume"
+        >
+          <FileText className="h-5 w-5" />
+        </button>
         <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700"></div>
-        <a href="https://github.com/PythonHacker24" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-        </a>
-        <a href="https://www.linkedin.com/in/aditya-patil-260a631b2/" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-        </a>
-        <a href="https://x.com/firecaffeine" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-          <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
-        </a>
         <a href="#research-and-blogs" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Research & Blogs">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+        </a>
+        <a href="https://github.com/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="https://x.com/shvshvat" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
+          <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
         </a>
         <a href="https://cal.com/adi-patil/30min" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
@@ -818,6 +812,42 @@ export default function Home() {
             <div className="rounded-lg bg-white p-2">
               <Image src="/frame.svg" alt="QR Code" width={200} height={200} className="w-48 h-48 sm:w-56 sm:h-56 object-contain" />
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Resume Modal */}
+      {showResume && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 dark:bg-white/5 backdrop-blur-sm"
+          onClick={() => setShowResume(false)}
+        >
+          <div
+            className="relative flex flex-col items-center w-[95vw] max-w-4xl h-[90vh] rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-4 sm:p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowResume(false)}
+              className="absolute -right-3 -top-3 rounded-full bg-black dark:bg-white p-2 text-white dark:text-black transition-transform hover:scale-110 z-10"
+              aria-label="Close"
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <div className="w-full h-full flex-grow relative overflow-hidden rounded-lg bg-white border border-transparent">
+              <iframe
+                src="/Resume.pdf#view=FitH&toolbar=0&navpanes=0"
+                className="absolute -left-[24px] -top-[24px] w-[calc(100%+48px)] h-[calc(100%+48px)] border-none"
+                title="Resume"
+              />
+            </div>
+            <a
+              href="/Resume.pdf"
+              download
+              className="absolute bottom-8 right-8 flex items-center justify-center rounded-full bg-black dark:bg-white p-3 text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 transition-transform hover:scale-110 shadow-lg z-20"
+              aria-label="Download Resume"
+            >
+              <Download className="h-5 w-5" />
+            </a>
           </div>
         </div>
       )}

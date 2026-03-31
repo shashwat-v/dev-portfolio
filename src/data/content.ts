@@ -48,9 +48,17 @@ Most recently, I worked on **Meteor**, an AI SEO toolkit at Entrepreneurs First.
 
 ## Education
 
-### National Institute of Technology Hamirpur
-**Electrical Engineering**
-2022 - Surviving
+### Ashoka University
+**B.Sc (Hons.) in Economics & Finance, minor in Entrepreneurship & Mathematics**
+August 2023 - August 2027
+
+### Yugdharma Public School
+**High School (Class 12th PCM)**
+April 2021 - April 2022
+
+### Scholars Academy
+**Secondary School (Class 10th)**
+May 2019 - May 2020
 
 ## Research Publications
 
@@ -116,14 +124,14 @@ I believe that the best products are built by people who have a diverse range of
 
 ## Get in Touch
 
-Connect with me on [LinkedIn](https://www.linkedin.com/in/aditya-patil-260a631b2/) or shoot an [email](mailto:adityapatil24680@gmail.com)
+Connect with me on [LinkedIn](https://www.linkedin.com/in/shashwat-v) or shoot an [email](mailto:shashwat.v@example.com)
 
 ---
 
 **Links:**
-- GitHub: [https://github.com/PythonHacker24](https://github.com/PythonHacker24)
-- LinkedIn: [https://www.linkedin.com/in/aditya-patil-260a631b2/](https://www.linkedin.com/in/aditya-patil-260a631b2/)
-- Twitter: [https://x.com/firecaffeine](https://x.com/firecaffeine)
+- GitHub: [https://github.com/shashwat-v](https://github.com/shashwat-v)
+- LinkedIn: [https://www.linkedin.com/in/shashwat-v](https://www.linkedin.com/in/shashwat-v)
+- Twitter: [https://x.com/shvshvat](https://x.com/shvshvat)
 - YouTube: [https://youtube.com/@theracecondition](https://youtube.com/@theracecondition)
 - Discord: [https://discord.gg/ry4YCJaShK](https://discord.gg/ry4YCJaShK)
 - Calendar: [https://cal.com/adi-patil/30min](https://cal.com/adi-patil/30min)
