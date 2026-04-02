@@ -9,7 +9,6 @@ import { ExperienceItem } from "@/components/ExperienceItem";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { GithubGraph } from "@/components/GithubGraph";
 import { getMarkdownContent } from "@/data/content";
-import { KeyboardAnimation } from "@/components/KeyboardAnimation";
 import { TechStack } from "@/components/TechStack";
 
 // ─── Social Icon SVGs ────────────────────────────────────────────────────────
@@ -483,11 +482,38 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 3D Keyboard */}
-            <div className="mb-8 w-full">
-              <div className="relative w-full h-[400px] sm:h-[500px] bg-transparent flex items-center justify-center">
-                <KeyboardAnimation />
+            {/* Research Publications Section */}
+            {/* <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Research Publications
+              </h2>
+              <div className="space-y-12">
+                <ExperienceItem title="Cross-Compatible Encryption Adapter for Securing Legacy Modbus Devices" role="" collapsible={true} collapsedHeight="max-h-40">
+                  <div className="space-y-4">
+                    <div className="space-y-1">
+                      <p className="text-sm text-gray-400 font-medium">2025 17th International Conference on COMmunication Systems and NETworks (COMSNETS)</p>
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                        <p className="text-gray-600 dark:text-gray-400">Authors: Aditya Patil; T. S. Sreeram</p>
+                        <a href="https://doi.org/10.1109/COMSNETS63942.2025.10885597" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs font-medium text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">View Publication</a>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-xs uppercase tracking-wider text-gray-400 dark:text-gray-500 font-bold">Abstract</p>
+                      <p className="text-gray-600 dark:text-gray-400">Supervisory Control and Data Acquisition systems are the backbone of managing critical infrastructure in modern industrial control systems, spanning sectors from power generation to logistics. However, these systems face significant challenges due to threats from malicious actors. The Modbus protocol, despite its known lack of security features, is still used in many industries managing critical infrastructure due to the high cost of replacing existing systems. As a result, these legacy systems remain vulnerable to potentially damaging threats. This paper proposes an adapter device for enhancing the security of the Modbus protocol without replacing devices in legacy systems. The proposed adapter is cost-efficient, provides cross-platform support, and is easy to install, update, and maintain.</p>
+                    </div>
+                  </div>
+                </ExperienceItem>
               </div>
+            </div> */}
+
+            {/* Writings & Blogs Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Writings & Blogs
+              </h2>
+              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                i host my thoughts on <a href="https://medium.com/@shashwat2775" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 transition-colors hover:text-gray-600 dark:hover:text-gray-300">medium</a> rather than building a custom site. instead of overengineering and reinventing the wheel, i prefer leveraging a mature platform that lets me focus on what matters: sharing insights on ai systems, product strategy, and technical architecture.
+              </p>
             </div>
 
             {/* Tech Stack */}
@@ -556,127 +582,6 @@ export default function Home() {
               <GithubGraph />
             </div>
 
-            {/* Recommendations by Clients Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Recommendations by Clients
-              </h2>
-              <div className="space-y-8">
-                <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
-                  <div className="mb-3">
-                    <a href="https://www.linkedin.com/in/royhax/" target="_blank" rel="noopener noreferrer" className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors">Roy Feldman</a>
-                    <span className="ml-2 text-xs font-medium text-gray-500">Ex. 8200 (Israeli Intelligence Corps)</span>
-                  </div>
-                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                    I've had the privilege to work with Aditya on several highly technical cybersecurity R&D projects involving design and implementation of defensive network components in Golang, network protocol research and analysis. He is a bright young engineer, extremely talented in hacking and cybersecurity, with a natural curiosity and passion for hacking, and a gift understanding how systems work, how to design and break them. I am certain that he will succeed in any endeavor he puts his mind to, in the realms of cybersecurity, engineering and beyond! :)
-                  </p>
-                </div>
-                <div className="group border-l-2 border-gray-200 dark:border-gray-800 pl-6 transition-all hover:border-black dark:hover:border-white">
-                  <div className="mb-3">
-                    <a href="https://www.linkedin.com/in/tomgranot/" target="_blank" rel="noopener noreferrer" className="text-base font-semibold text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-700 hover:decoration-black dark:hover:decoration-white transition-colors">Tom Granot</a>
-                    <span className="ml-2 text-xs font-medium text-gray-500">Technical GTM (Israel)</span>
-                  </div>
-                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                    It's not often that you get to talk to a person who is not only hungry for mentorship, but comes out of the gate with the attitude that enables him to learn so, so quickly on his feet.<br /><br />
-                    Aditya did research for highly technical content for me and independently navigated difficult situations without a lot of guidance. If you're looking for someone to research a technical topic for your content work, Aditya is disciplined, thorough and insistent on understanding things in depth before giving a final output.<br /><br />
-                    Keep on keeping on brother!
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Research Publications Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Research Publications
-              </h2>
-              <div className="space-y-12">
-                <ExperienceItem title="Cross-Compatible Encryption Adapter for Securing Legacy Modbus Devices" role="" collapsible={true} collapsedHeight="max-h-40">
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <p className="text-sm text-gray-400 font-medium">2025 17th International Conference on COMmunication Systems and NETworks (COMSNETS)</p>
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-                        <p className="text-gray-600 dark:text-gray-400">Authors: Aditya Patil; T. S. Sreeram</p>
-                        <a href="https://doi.org/10.1109/COMSNETS63942.2025.10885597" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs font-medium text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">View Publication</a>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-wider text-gray-400 dark:text-gray-500 font-bold">Abstract</p>
-                      <p className="text-gray-600 dark:text-gray-400">Supervisory Control and Data Acquisition systems are the backbone of managing critical infrastructure in modern industrial control systems, spanning sectors from power generation to logistics. However, these systems face significant challenges due to threats from malicious actors. The Modbus protocol, despite its known lack of security features, is still used in many industries managing critical infrastructure due to the high cost of replacing existing systems. As a result, these legacy systems remain vulnerable to potentially damaging threats. This paper proposes an adapter device for enhancing the security of the Modbus protocol without replacing devices in legacy systems. The proposed adapter is cost-efficient, provides cross-platform support, and is easy to install, update, and maintain.</p>
-                    </div>
-                  </div>
-                </ExperienceItem>
-              </div>
-            </div>
-
-            {/* Videos Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Explainer Videos
-              </h2>
-              <div className="space-y-3 text-lg text-gray-600 dark:text-gray-400">
-                <p>here is how i explain complex systems on my <a href="https://www.youtube.com/@theracecondition" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">youtube channel</a></p>
-                <p>watch me build <a href="https://www.youtube.com/watch?v=m84tBP_4DWE" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">spotify system design</a></p>
-              </div>
-            </div>
-
-            {/* Writings & Blogs Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Writings & Blogs
-              </h2>
-              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                i host my thoughts on <a href="https://medium.com/@adityapatil24680" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 transition-colors hover:text-gray-600 dark:hover:text-gray-300">medium</a> rather than building a custom site. instead of overengineering and reinventing the wheel, i prefer leveraging a mature platform that lets me focus on what matters: sharing insights on ai systems, product strategy, and technical architecture.
-              </p>
-            </div>
-
-            {/* Library Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Library
-              </h2>
-              <div className="relative transition-all duration-500 max-h-32 overflow-hidden">
-                <div className="mb-8">
-                  <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">Dev</h3>
-                  <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                    {[
-                      { title: "Linux Kernel Development", author: "Robert Love" },
-                      { title: "Hacking: The Art of Exploitation", author: "Jon Erickson" },
-                      { title: "Linux in a Nutshell", author: "Ellen Siever, Stephen Figgins, Robert Love, and Arnold Robbins" },
-                      { title: "Linux Kernel in a Nutshell", author: "Greg Kroah-Hartman" },
-                      { title: "The Art of Electronics", author: "Paul Horowitz and Winfield Hill" },
-                      { title: "Nmap Cookbook", author: "Nicholas Marsh" }
-                    ].map((book) => (
-                      <div key={book.title} className="group flex flex-col gap-1 transition-all">
-                        <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">{book.title}</span>
-                        <span className="text-xs text-gray-400 dark:text-gray-500">{book.author}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">Casual Reads</h3>
-                  <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                    {[
-                      { title: "Hooked: How to Build Habit-Forming Products", author: "Nir Eyal" },
-                      { title: "The Lean Startup", author: "Eric Ries" },
-                      { title: "Zero to One", author: "Peter Thiel" },
-                      { title: "The Almanack of Naval Ravikant", author: "Eric Jorgenson" },
-                      { title: "Deep Work", author: "Cal Newport" },
-                      { title: "The Anthology of Balaji Srinivasan", author: "Eric Jorgenson" }
-                    ].map((book) => (
-                      <div key={book.title} className="group flex flex-col gap-1 transition-all">
-                        <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">{book.title}</span>
-                        <span className="text-xs text-gray-400 dark:text-gray-500">{book.author}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <p className="mt-6 text-xs italic text-gray-400 dark:text-gray-500">*and many more, these are just one of my best reads</p>
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white dark:from-black to-transparent" />
-              </div>
-            </div>
-
             {/* Thing about me Section */}
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
@@ -701,39 +606,6 @@ export default function Home() {
                 <p className="text-lg text-gray-600 dark:text-gray-400">
                   connect with me on <a href="https://www.linkedin.com/in/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">linkedin</a> or shoot an <a href="mailto:shashwat.v@example.com" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">email</a>
                 </p>
-              </div>
-            </div>
-
-            {/* Pomodoro Timer */}
-            <div className="relative mb-16 w-full text-left">
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Pomodoro Timer</h2>
-                <button className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black dark:hover:text-white transition-colors">Adjust Time</button>
-              </div>
-              <div className="mb-8 w-full text-left">
-                <p className="text-sm italic text-gray-500 dark:text-gray-400">You've reached the end! Or have you? Before you vanish into the digital void, I've got a quick Pomodoro Timer to help you focus better on your next big thing.</p>
-              </div>
-              <div className="relative z-10 overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all dark:border-zinc-800 dark:bg-zinc-900/50">
-                <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-                  <div className="flex flex-col items-center sm:items-start">
-                    <span className="font-mono text-5xl font-light tracking-tight text-black dark:text-white">25:00</span>
-                    <span className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-gray-400">Focus Session</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="mr-4 flex rounded-full bg-gray-50 p-1 dark:bg-zinc-800">
-                      <button className="rounded-full px-4 py-1.5 text-xs font-semibold transition-all bg-white text-black shadow-sm dark:bg-zinc-700 dark:text-white">25m</button>
-                      <button className="rounded-full px-4 py-1.5 text-xs font-semibold transition-all text-gray-400 hover:text-gray-600">5m</button>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white transition-transform hover:scale-105 active:scale-95 dark:bg-white dark:text-black" aria-label="Start">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-play ml-0.5"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>
-                      </button>
-                      <button className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-all hover:bg-gray-50 hover:text-black dark:border-zinc-800 dark:text-gray-400 dark:hover:bg-zinc-800 dark:hover:text-white" aria-label="Reset">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
