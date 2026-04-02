@@ -162,9 +162,6 @@ export default function Home() {
   const [showResume, setShowResume] = useState(false);
   const [isAuraActive, setIsAuraActive] = useState(false);
   const [time, setTime] = useState("");
-  const [isLofiPlaying, setIsLofiPlaying] = useState(false);
-  const [lofiVolume, setLofiVolume] = useState(1);
-  const lofiRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (showQR || showResume) {
@@ -197,35 +194,6 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    if (lofiRef.current) {
-      lofiRef.current.volume = lofiVolume;
-    }
-  }, [lofiVolume]);
-
-  useEffect(() => {
-    return () => {
-      if (lofiRef.current) {
-        lofiRef.current.pause();
-        lofiRef.current = null;
-      }
-    };
-  }, []);
-
-  const toggleLofi = () => {
-    if (!lofiRef.current) {
-      lofiRef.current = new Audio("/lofi.mp3");
-      lofiRef.current.loop = true;
-      lofiRef.current.volume = lofiVolume;
-    }
-
-    if (isLofiPlaying) {
-      lofiRef.current.pause();
-    } else {
-      lofiRef.current.play().catch(e => console.error("Lofi play failed:", e));
-    }
-    setIsLofiPlaying(!isLofiPlaying);
-  };
 
   const starPositions = useMemo(() => {
     return [...Array(50)].map(() => ({
@@ -342,40 +310,7 @@ export default function Home() {
                     <LiveClock />
                   </span>
                 </div>
-                <span className="text-gray-300 dark:text-gray-700">•</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-tight text-gray-400">lofi</span>
-                  <button
-                    onClick={toggleLofi}
-                    className="flex h-5 w-5 items-center justify-center rounded-full transition-all hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-black dark:hover:text-white" aria-label="Play Lofi"
-                  >
-                    {isLofiPlaying ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pause"><rect width="4" height="16" x="6" y="4"></rect><rect width="4" height="16" x="14" y="4"></rect></svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-music"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-                    )}
-                  </button>
-                  <AnimatePresence>
-                    {isLofiPlaying && (
-                      <motion.div
-                        initial={{ width: 0, opacity: 0 }}
-                        animate={{ width: 40, opacity: 1 }}
-                        exit={{ width: 0, opacity: 0 }}
-                        className="flex h-5 items-center overflow-hidden"
-                      >
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.01"
-                          value={lofiVolume}
-                          onChange={(e) => setLofiVolume(parseFloat(e.target.value))}
-                          className="h-[2px] w-8 cursor-pointer appearance-none rounded-full bg-gray-200 dark:bg-zinc-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 dark:[&::-webkit-slider-thumb]:bg-zinc-500 hover:[&::-webkit-slider-thumb]:bg-black dark:hover:[&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:h-2 [&::-moz-range-thumb]:w-2 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gray-400 dark:[&::-moz-range-thumb]:bg-zinc-500 hover:[&::-moz-range-thumb]:bg-black dark:hover:[&::-moz-range-thumb]:bg-white transition-all"
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+
               </div>
             </div>
 
