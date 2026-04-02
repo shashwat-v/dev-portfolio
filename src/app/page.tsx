@@ -10,6 +10,7 @@ import { ExperienceCard } from "@/components/ExperienceCard";
 import { GithubGraph } from "@/components/GithubGraph";
 import { getMarkdownContent } from "@/data/content";
 import { TechStack } from "@/components/TechStack";
+import { QRCodeSVG } from "qrcode.react";
 
 // ─── Social Icon SVGs ────────────────────────────────────────────────────────
 function IconPerson() {
@@ -145,10 +146,10 @@ function FloatingNavBar() {
       <a href="https://x.com/shvshvat" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
       </a>
-      <a href="https://medium.com/@shashwat2775" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Research & Blogs">
+      <a href="https://medium.com/@shashwat2775" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Blogs">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true"><path fillRule="evenodd" clipRule="evenodd" d="M3.003 0C1.344 0 0 1.344 0 3.003v17.994C0 22.656 1.344 24 3.003 24h17.994C22.656 24 24 22.656 24 20.997V3.003C24 1.344 22.656 0 20.997 0H3.003zm16.935 5.686L18.651 6.92a.376.376 0 0 0-.143.362v9.067a.376.376 0 0 0 .143.361l1.257 1.234v.271h-6.322v-.27l1.302-1.265c.128-.128.128-.165.128-.36V8.99l-3.62 9.195h-.49L6.69 8.99v6.163a.85.85 0 0 0 .233.707l1.694 2.054v.271H3.815v-.27l1.258-1.234a.376.376 0 0 0 .143-.361V7.282a.376.376 0 0 0-.143-.362L3.815 5.686v-.271h5.367l3.208 7.377 3.207-7.377h5.341v.271z" /></svg>
       </a>
-      <a href="https://cal.com/adi-patil/30min" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
+      <a href="https://cal.com/shashwat-v/30min" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
       </a>
     </nav>
@@ -647,7 +648,7 @@ export default function Home() {
           <FileText className="h-5 w-5" />
         </button>
         <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700"></div>
-        <a href="https://medium.com/@shashwat2775" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Research & Blogs">
+        <a href="https://medium.com/@shashwat2775" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Blogs">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" /></svg>
         </a>
         <a href="https://github.com/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
@@ -659,7 +660,7 @@ export default function Home() {
         <a href="https://x.com/shvshvat" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
           <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
         </a>
-        <a href="https://cal.com/adi-patil/30min" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
+        <a href="https://cal.com/shashwat-v/30min" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
         </a>
       </nav>
@@ -682,7 +683,13 @@ export default function Home() {
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x h-4 w-4" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
             </button>
             <div className="rounded-lg bg-white p-2">
-              <Image src="/frame.svg" alt="QR Code" width={200} height={200} className="w-48 h-48 sm:w-56 sm:h-56 object-contain" />
+              <QRCodeSVG
+                value="https://www.svkdev.com/"
+                size={200}
+                level="H"
+                includeMargin={false}
+                className="w-48 h-48 sm:w-56 sm:h-56"
+              />
             </div>
           </div>
         </div>
