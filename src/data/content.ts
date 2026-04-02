@@ -124,7 +124,7 @@ I believe that the best products are built by people who have a diverse range of
 
 ## Get in Touch
 
-Connect with me on [LinkedIn](https://www.linkedin.com/in/shashwat-v) or shoot an [email](mailto:shashwat.v@example.com)
+Connect with me on [LinkedIn](https://www.linkedin.com/in/shashwat-v) or shoot an [email](https://mail.google.com/mail/?view=cm&fs=1&to=shashwat2775@gmail.com)
 
 ---
 
