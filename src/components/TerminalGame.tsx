@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, CornerDownLeft } from "lucide-react";
 
 // ─── Guess The Number ───────────────────────────────────────────────────────
 // A fake-terminal mini game. Styled to look like a terminal but built with
@@ -79,6 +79,9 @@ export function TerminalGame() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Refocus within the submit gesture so tapping the on-screen Enter button
+    // on mobile keeps the keyboard open instead of dismissing it each guess.
+    inputRef.current?.focus();
     const raw = value.trim();
     setValue("");
     if (!raw) return;
@@ -144,7 +147,7 @@ export function TerminalGame() {
   return (
     <div
       onClick={() => inputRef.current?.focus()}
-      className="cursor-text overflow-hidden rounded-xl border border-gray-200 dark:border-zinc-800 bg-gray-50 dark:bg-zinc-900/60 shadow-sm transition-colors"
+      className="cursor-text touch-manipulation overflow-hidden rounded-xl border border-gray-200 dark:border-zinc-800 bg-gray-50 dark:bg-zinc-900/60 shadow-sm transition-colors"
       style={{ fontFamily: MONO_STACK }}
     >
       {/* Title bar */}
@@ -163,7 +166,7 @@ export function TerminalGame() {
             e.stopPropagation();
             resetGame();
           }}
-          className="ml-auto text-gray-400 transition-transform duration-500 hover:-rotate-180 hover:text-black dark:text-gray-500 dark:hover:text-white"
+          className="-mr-1.5 ml-auto touch-manipulation rounded-md p-1.5 text-gray-400 transition-transform duration-500 hover:-rotate-180 hover:text-black dark:text-gray-500 dark:hover:text-white"
           aria-label="Restart game"
           title="Restart"
         >
@@ -183,7 +186,7 @@ export function TerminalGame() {
         ))}
 
         {/* Prompt line with blinking cursor */}
-        <form onSubmit={handleSubmit} className="mt-1 flex items-center">
+        <form onSubmit={handleSubmit} className="mt-1 flex items-center gap-2">
           <span className="shrink-0 font-bold text-cyan-600 dark:text-cyan-400">{promptSymbol}&nbsp;</span>
           <span className="relative min-w-0 flex-1">
             <span className="break-all text-gray-700 dark:text-gray-200">{value}</span>
@@ -192,15 +195,30 @@ export function TerminalGame() {
               ref={inputRef}
               value={value}
               onChange={(e) => setValue(e.target.value)}
+              // 16px font-size stops iOS Safari from auto-zooming on focus; the
+              // text is transparent so this doesn't affect the visible value.
+              style={{ fontSize: "16px" }}
               className="absolute inset-0 h-full w-full cursor-text bg-transparent text-transparent caret-transparent outline-none"
               aria-label="Enter your guess"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
+              enterKeyHint="send"
               inputMode={phase === "replay" ? "text" : "numeric"}
             />
           </span>
+          {/* Touch devices (esp. iOS numeric keypads) have no Enter key, so a
+              tappable submit button is required to play on mobile. */}
+          <button
+            type="submit"
+            onClick={(e) => e.stopPropagation()}
+            className="shrink-0 touch-manipulation rounded-md p-2 text-gray-400 transition-colors hover:bg-gray-200/60 hover:text-black dark:text-gray-500 dark:hover:bg-white/10 dark:hover:text-white"
+            aria-label="Submit guess"
+            title="Submit"
+          >
+            <CornerDownLeft className="h-4 w-4" />
+          </button>
         </form>
       </div>
     </div>
