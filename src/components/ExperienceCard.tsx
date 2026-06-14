@@ -4,7 +4,7 @@ import { useState } from "react";
 
 interface ExperienceCardProps {
     title: string;
-    role: string;
+    role?: string;
     logo: React.ReactNode;
     children: React.ReactNode;
     link?: string;
@@ -26,7 +26,7 @@ export function ExperienceCard({ title, role, logo, children, link }: Experience
                             <a href={link} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 dark:text-gray-500 underline underline-offset-2 hover:text-black dark:hover:text-white">link</a>
                         )}
                     </div>
-                    <span className="text-sm text-gray-400 dark:text-gray-500">{role}</span>
+                    {role && <span className="text-sm text-gray-400 dark:text-gray-500">{role}</span>}
                 </div>
             </div>
             
