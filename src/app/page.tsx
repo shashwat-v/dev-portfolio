@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, Bot, FileText, Download, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -10,70 +10,8 @@ import { ExperienceCard } from "@/components/ExperienceCard";
 import { GithubGraph } from "@/components/GithubGraph";
 import { getMarkdownContent } from "@/data/content";
 import { TechStack } from "@/components/TechStack";
+import { TerminalGame } from "@/components/TerminalGame";
 import { QRCodeSVG } from "qrcode.react";
-
-// ─── Social Icon SVGs ────────────────────────────────────────────────────────
-function IconPerson() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
-
-function IconQR() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="7" height="7" />
-      <rect x="14" y="3" width="7" height="7" />
-      <rect x="3" y="14" width="7" height="7" />
-      <rect x="14" y="14" width="3" height="3" />
-      <rect x="18" y="18" width="3" height="3" />
-      <rect x="14" y="18" width="3" height="3" />
-      <rect x="18" y="14" width="3" height="3" />
-    </svg>
-  );
-}
-
-function IconMessage() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    </svg>
-  );
-}
-
-function IconLinkedIn() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
-
-function IconX() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.261 5.636 5.902-5.636zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-
-
-
-function IconCalendar() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-    </svg>
-  );
-}
 
 // ─── Live Clock ───────────────────────────────────────────────────────────────
 function LiveClock() {
@@ -99,62 +37,17 @@ function LiveClock() {
   return <span>{time} IST</span>;
 }
 
-// ─── Floating NavBar ──────────────────────────────────────────────────────────
-function FloatingNavBar() {
-  const [isAgentMode, setIsAgentMode] = useState(false);
+// Star positions are generated once at module load (outside render) so the
+// values stay stable across re-renders and don't call impure Math.random()
+// during rendering. The stars only render client-side when the aura is active.
+type StarPosition = { top: string; left: string; duration: number; delay: number };
 
-  return (
-    <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full border border-gray-200 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/80 px-4 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90 dark:hover:bg-zinc-900 sm:gap-6 sm:px-6 z-50">
-      <div className="flex items-center">
-        <button
-          onClick={() => setIsAgentMode(!isAgentMode)}
-          className={`group relative flex h-7 w-12 cursor-pointer rounded-full p-1 transition-colors duration-200 ease-in-out focus:outline-none bg-gray-200 hover:bg-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600`}
-          role="switch"
-          aria-checked={isAgentMode}
-          title="Switch to agent mode"
-        >
-          <div className={`flex h-5 w-5 transform items-center justify-center rounded-full bg-white shadow-sm transition duration-200 ease-in-out ${isAgentMode ? 'translate-x-5' : 'translate-x-0'}`}>
-            {isAgentMode ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3 text-black" aria-hidden="true">
-                <path d="M12 8V4H8" />
-                <rect width="16" height="12" x="4" y="8" rx="2" />
-                <path d="M2 14h2" />
-                <path d="M20 14h2" />
-                <path d="M15 13v2" />``
-                <path d="M9 13v2" />
-              </svg>
-              // </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3 text-black" aria-hidden="true">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            )}
-          </div>
-        </button>
-      </div>
-      <button className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" aria-label="Show QR Code">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1"></rect><rect width="5" height="5" x="16" y="3" rx="1"></rect><rect width="5" height="5" x="3" y="16" rx="1"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3"></path><path d="M21 21v.01"></path><path d="M12 7v3a2 2 0 0 1-2 2H7"></path><path d="M3 12h.01"></path><path d="M12 3h.01"></path><path d="M12 16v.01"></path><path d="M16 12h1"></path><path d="M21 12v.01"></path><path d="M12 21v-1"></path></svg>
-      </button>
-      <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700"></div>
-      <a href="https://github.com/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-      </a>
-      <a href="https://x.com/shvshvat" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
-      </a>
-      <a href="https://medium.com/@shashwat2775" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110" title="Blogs">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true"><path fillRule="evenodd" clipRule="evenodd" d="M3.003 0C1.344 0 0 1.344 0 3.003v17.994C0 22.656 1.344 24 3.003 24h17.994C22.656 24 24 22.656 24 20.997V3.003C24 1.344 22.656 0 20.997 0H3.003zm16.935 5.686L18.651 6.92a.376.376 0 0 0-.143.362v9.067a.376.376 0 0 0 .143.361l1.257 1.234v.271h-6.322v-.27l1.302-1.265c.128-.128.128-.165.128-.36V8.99l-3.62 9.195h-.49L6.69 8.99v6.163a.85.85 0 0 0 .233.707l1.694 2.054v.271H3.815v-.27l1.258-1.234a.376.376 0 0 0 .143-.361V7.282a.376.376 0 0 0-.143-.362L3.815 5.686v-.271h5.367l3.208 7.377 3.207-7.377h5.341v.271z" /></svg>
-      </a>
-      <a href="https://cal.com/shashwat-v/30min" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
-      </a>
-    </nav>
-  );
-}
+const starPositions: StarPosition[] = [...Array(50)].map(() => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  duration: 2 + Math.random() * 3,
+  delay: Math.random() * 5,
+}));
 
 export default function Home() {
   const [isAgentMode, setIsAgentMode] = useState(false);
@@ -194,15 +87,6 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-
-  const starPositions = useMemo(() => {
-    return [...Array(50)].map(() => ({
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      duration: 2 + Math.random() * 3,
-      delay: Math.random() * 5,
-    }));
-  }, []);
 
   return (
     <div className="relative flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300">
@@ -287,10 +171,10 @@ export default function Home() {
                 src="/profile-pic.png"
                 alt="Profile"
                 fill
+                sizes="(min-width: 640px) 256px, 192px"
                 className={`object-cover transition-all duration-700 ${!isAuraActive ? 'grayscale' : 'grayscale-0'}`}
                 priority
               />
-              {/* <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/60 to-transparent dark:opacity-100 opacity-0 transition-opacity duration-500 pointer-events-none" /> */}
               <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-black dark:via-black/60 backdrop-blur-[1px]"></div>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_20px_rgba(59,130,246,0.3)] rounded-full pointer-events-none"></div>
             </button>
@@ -320,30 +204,7 @@ export default function Home() {
                 I’m a curious polymath and generalist by nature — drawn across disciplines, yet disciplined enough to go deep when it matters. I think in systems, question first principles, and value clarity through exploration.</p>
               <p>
                 At heart, I’m a tinkerer and builder — shaping thoughtful technology through iteration and precision. I focus less on noise and more on building things that work, endure, and improve over time.</p>
-              {/* <p>
-            a full-stack developer and{" "}
-            <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
-              product builder
-            </a>{" "}
-            with deep experience across engineering, product strategy, and user-centric design.
-          </p>
-          <p>
-            a{" "}
-            <a href="https://en.wikipedia.org/wiki/Polymath" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
-              polymath
-            </a>{" "}
-            who bridges technical architecture with business outcomes to create impactful, scalable solutions.
-          </p> */}
             </div>
-
-            {/* Side Feature Link */}
-            {/* <div className="mb-4 w-full flex justify-start py-6">
-          <button className="group flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all duration-300">
-            <span className="text-sm sm:text-base underline underline-offset-8 decoration-gray-200 dark:decoration-zinc-800 group-hover:decoration-blue-500 transition-all">
-              side feature: neural landscape
-            </span>
-          </button>
-        </div> */}
 
             {/* Experience Section */}
             <div className="mb-16 w-full text-left py-6">
@@ -355,7 +216,7 @@ export default function Home() {
                   title="JULIUS BAER | Wealth Management Intern"
                   role="Dec 2025 - January 2026 | Gurugram, India"
                   link="#"
-                  logo={<Image src="/juliusbaerlogo.png" alt="Julius Baer Logo" fill className="object-cover" />}
+                  logo={<Image src="/juliusbaerlogo.png" alt="Julius Baer Logo" fill sizes="56px" className="object-cover" />}
                 >
                   <div className="space-y-2">
                     <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
@@ -372,7 +233,7 @@ export default function Home() {
                   title="PHASE0 | Founder & Full-Stack Engineer"
                   role="Dec 2025 – Present | Remote"
                   link="#"
-                  logo={<Image src="/phase0logo2.png" alt="PHASE0 Logo" fill className="object-cover" />}
+                  logo={<Image src="/phase0logo2.png" alt="PHASE0 Logo" fill sizes="56px" className="object-cover" />}
                 >
                   <div className="space-y-2">
                     <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
@@ -389,7 +250,7 @@ export default function Home() {
                   title="COGNECTO | App Developer"
                   role="Sep 2023 - Nov 2023 | Bengaluru, India"
                   link="#"
-                  logo={<Image src="/cognectologo.jpg" alt="Cognecto Logo" fill className="object-cover" />}
+                  logo={<Image src="/cognectologo.jpg" alt="Cognecto Logo" fill sizes="56px" className="object-cover" />}
                 >
                   <div className="space-y-2">
                     <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
@@ -405,7 +266,7 @@ export default function Home() {
                   title="D FRAME | Co-Founder of Technology (Full-Stack Engineer)"
                   role="Jul 2022 - Jul 2024 | The Hague, Netherlands"
                   link="#"
-                  logo={<Image src="/dframelogo.jpg" alt="D FRAME Logo" fill className="object-cover" />}
+                  logo={<Image src="/dframelogo.jpg" alt="D FRAME Logo" fill sizes="56px" className="object-cover" />}
                 >
                   <div className="space-y-2">
                     <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
@@ -418,29 +279,30 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Research Publications Section */}
-            {/* <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Research Publications
-              </h2>
-              <div className="space-y-12">
-                <ExperienceItem title="Cross-Compatible Encryption Adapter for Securing Legacy Modbus Devices" role="" collapsible={true} collapsedHeight="max-h-40">
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <p className="text-sm text-gray-400 font-medium">2025 17th International Conference on COMmunication Systems and NETworks (COMSNETS)</p>
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-                        <p className="text-gray-600 dark:text-gray-400">Authors: Aditya Patil; T. S. Sreeram</p>
-                        <a href="https://doi.org/10.1109/COMSNETS63942.2025.10885597" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs font-medium text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">View Publication</a>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-wider text-gray-400 dark:text-gray-500 font-bold">Abstract</p>
-                      <p className="text-gray-600 dark:text-gray-400">Supervisory Control and Data Acquisition systems are the backbone of managing critical infrastructure in modern industrial control systems, spanning sectors from power generation to logistics. However, these systems face significant challenges due to threats from malicious actors. The Modbus protocol, despite its known lack of security features, is still used in many industries managing critical infrastructure due to the high cost of replacing existing systems. As a result, these legacy systems remain vulnerable to potentially damaging threats. This paper proposes an adapter device for enhancing the security of the Modbus protocol without replacing devices in legacy systems. The proposed adapter is cost-efficient, provides cross-platform support, and is easy to install, update, and maintain.</p>
-                    </div>
+            {/* Projects Section */}
+            <div className="mb-16 w-full text-left py-6">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Projects</h2>
+              <div className="space-y-6">
+
+                {/* SHODH */}
+                <ExperienceCard
+                  title="SHODH"
+                  role="2026 – Present"
+                  link="https://readshodh.vercel.app/"
+                  logo={<Image src="/phase0logo2.png" alt="Shodh Logo" fill sizes="56px" className="object-cover" />}
+                >
+                  <div className="space-y-2">
+                    <ul className="list-disc list-inside space-y-1 pl-2 text-gray-600 dark:text-gray-400">
+                      <li>A deep-research reading and analysis tool for investors — combining a PDF viewer, inline highlighting and annotation, and an AI-powered analysis panel.</li>
+                      <li>Built on Next.js (App Router) with Supabase for auth and data, and Groq for fast LLM inference.</li>
+                      <li>Positioned as a “personal research accumulation layer” — a gap underserved by enterprise tools like AlphaSense and Hebbia.</li>
+                      <li>Currently iterating on it, including security and performance audits (rate limiting, RLS policy optimization, payload reduction, parallelized API routes).</li>
+                    </ul>
                   </div>
-                </ExperienceItem>
+                </ExperienceCard>
+
               </div>
-            </div> */}
+            </div>
 
             {/* Writings & Blogs Section */}
             <div className="mb-16 w-full text-left">
@@ -543,6 +405,14 @@ export default function Home() {
                   connect with me on <a href="https://www.linkedin.com/in/shashwat-v" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">linkedin</a> or shoot an <a href="https://mail.google.com/mail/?view=cm&fs=1&to=shashwat2775@gmail.com" target="_blank" rel="noopener noreferrer" className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300">email</a>
                 </p>
               </div>
+            </div>
+
+            {/* Just For Fun — fake-terminal mini game */}
+            <div className="w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Just for Fun
+              </h2>
+              <TerminalGame />
             </div>
 
           </motion.main>
