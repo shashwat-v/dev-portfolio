@@ -171,7 +171,7 @@ export default function Home() {
                 src="/profile-pic.png"
                 alt="Profile"
                 fill
-                sizes="(min-width: 640px) 256px, 192px"
+                sizes="(min-width: 640px) 512px, 384px"
                 className={`object-cover transition-all duration-700 ${!isAuraActive ? 'grayscale' : 'grayscale-0'}`}
                 priority
               />
